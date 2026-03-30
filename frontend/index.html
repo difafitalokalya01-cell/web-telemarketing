@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram HR Dashboard v2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>📱 TG Dashboard</h2>
+  <nav>
+    <a id="menu-akun"    onclick="tampilTab('akun')"   >👤 Akun</a>
+    <a id="menu-grup"    onclick="tampilTab('grup')"   >👥 Grup</a>
+    <a id="menu-draft"   onclick="tampilTab('draft')"  >📝 Draft Pesan</a>
+    <a id="menu-antrian" onclick="tampilTab('antrian')">📋 Antrian</a>
+    <a id="menu-kirim"   onclick="tampilTab('kirim')"  >✉️ Kirim</a>
+    <a id="menu-riwayat" onclick="tampilTab('riwayat')">📊 Riwayat</a>
+  </nav>
+</div>
+
+<div class="konten">
+
+  <!-- ── TAB: AKUN ── -->
+  <div id="tab-akun" class="tab">
+    <h2>👤 Daftar Akun</h2>
+    <div id="list-akun"><div class="loading"><span class="spinner"></span> Memuat...</div></div>
+    <hr>
+    <div class="section-card">
+      <h3>➕ Tambah Akun</h3>
+      <div class="form-group">
+        <label>Nomor HP</label>
+        <input id="input-phone" placeholder="+628123456789" type="tel">
+      </div>
+      <button class="btn-primary" onclick="loginAkun()">🔗 Login</button>
+      <div id="pesan-akun" class="pesan-status"></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: GRUP ── -->
+  <div id="tab-grup" class="tab" style="display:none">
+    <h2>👥 Daftar Grup</h2>
+    <div class="section-card">
+      <h3>🔄 Fetch Grup</h3>
+      <div class="form-group">
+        <label>Pilih akun</label>
+        <select id="pilih-akun-grup"></select>
+      </div>
+      <button class="btn-outline" onclick="fetchGrup()">🔄 Ambil Grup</button>
+      <div id="pesan-grup" class="pesan-status"></div>
+    </div>
+    <div id="list-grup">
+      <div class="empty-state"><div class="icon">👥</div><p>Pilih akun lalu fetch</p></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: DRAFT ── -->
+  <div id="tab-draft" class="tab" style="display:none">
+    <h2>📝 Draft Pesan</h2>
+    <div class="section-card">
+      <h3>➕ Buat Draft Baru</h3>
+      <div class="form-group">
+        <label>Judul Draft</label>
+        <input id="draft-judul" placeholder="Misal: Lowongan Staff April">
+      </div>
+      <div class="form-group">
+        <label>Isi Pesan</label>
+        <textarea id="draft-isi" placeholder="Tulis isi pesan..."></textarea>
+      </div>
+      <button class="btn-primary" onclick="simpanDraft()">💾 Simpan Draft</button>
+      <div id="pesan-draft" class="pesan-status"></div>
+    </div>
+    <h3 style="margin-bottom:12px">📂 Draft Tersimpan</h3>
+    <div id="list-draft">
+      <div class="loading"><span class="spinner"></span> Memuat draft...</div>
+    </div>
+  </div>
+
+  <!-- ── TAB: ANTRIAN ── -->
+  <div id="tab-antrian" class="tab" style="display:none">
+    <h2>📋 Antrian Pengiriman</h2>
+    <div class="section-card">
+      <h3>➕ Tambah ke Antrian</h3>
+      <div class="form-group">
+        <label>Akun pengirim</label>
+        <select id="antrian-akun"></select>
+      </div>
+      <div class="form-group">
+        <label>Pilih grup</label>
+        <select id="antrian-grup"></select>
+      </div>
+      <div class="form-group">
+        <label>Isi pesan</label>
+        <textarea id="antrian-pesan" placeholder="Tulis pesan atau salin dari draft..."></textarea>
+      </div>
+      <button class="btn-primary" onclick="tambahAntrian()">➕ Masukkan Antrian</button>
+      <div id="pesan-antrian" class="pesan-status"></div>
+    </div>
+    <h3 style="margin-bottom:12px">⏳ Menunggu Dikirim</h3>
+    <div id="list-antrian">
+      <div class="loading"><span class="spinner"></span> Memuat antrian...</div>
+    </div>
+  </div>
+
+  <!-- ── TAB: KIRIM LANGSUNG ── -->
+  <div id="tab-kirim" class="tab" style="display:none">
+    <h2>✉️ Kirim Langsung</h2>
+    <div class="section-card">
+      <h3>📤 Form Kirim Manual</h3>
+      <div class="form-group">
+        <label>Akun pengirim</label>
+        <select id="pilih-akun-kirim"></select>
+      </div>
+      <div class="form-group">
+        <label>Grup tujuan</label>
+        <select id="pilih-grup-kirim"></select>
+      </div>
+      <div class="form-group">
+        <label>Isi pesan</label>
+        <textarea id="isi-pesan" placeholder="Tulis pesan..."></textarea>
+      </div>
+      <button class="btn-success" onclick="kirimPesan()">📤 Kirim Sekarang</button>
+      <div id="hasil-kirim" class="pesan-status"></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: RIWAYAT ── -->
+  <div id="tab-riwayat" class="tab" style="display:none">
+    <h2>📊 Riwayat Hari Ini</h2>
+    <div id="ringkasan-box" class="ringkasan-grid"></div>
+    <div style="margin:16px 0">
+      <button class="btn-outline" onclick="muatRiwayat()">🔄 Refresh</button>
+    </div>
+    <div id="list-riwayat">
+      <div class="empty-state"><div class="icon">📊</div><p>Klik Refresh untuk muat riwayat</p></div>
+    </div>
+  </div>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
