@@ -16,7 +16,7 @@ from utils.storage_db import (
 )
 from services.account_manager import (
     login_akun, logout_akun, submit_otp,
-    _clients, run_sync, _loop
+    auto_reconnect_semua, _clients, run_sync, _loop
 )
 from services.group_manager import fetch_grup_dari_akun
 from services.message_service import kirim_pesan_manual
@@ -29,7 +29,13 @@ import asyncio
 
 app = Flask(__name__)
 CORS(app)
+
+# Init database
 init_db()
+
+# AUTO-RECONNECT saat server start
+print("Menghubungkan ulang akun Telegram...")
+run_sync(auto_reconnect_semua())
 
 
 # ── SERVE FRONTEND ────────────────────────────────────────
