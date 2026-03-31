@@ -140,3 +140,23 @@ hr { border:none; border-top:1px solid #eee; margin:22px 0; }
   .ringkasan-grid { grid-template-columns:repeat(2,1fr); }
   .akun-grid { grid-template-columns:1fr; }
 }
+
+/* ── TABEL ANALISIS ── */
+.tabel-analisis { width:100%; border-collapse:collapse; font-size:13px; }
+.tabel-analisis th { background:#1e2a3a; color:#fff; padding:10px 12px; text-align:left; font-size:12px; }
+.tabel-analisis td { padding:10px 12px; border-bottom:1px solid #f0f0f0; vertical-align:middle; }
+.tabel-analisis tr:hover td { background:#f8fafc; }
+
+/* ── DRAFT AKTIF ── */
+.draft-aktif-card { border:2px solid #22c55e !important; background:#f0fdf4; }
+.badge-pesan-aktif { background:#22c55e; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.pesan-aktif-banner { display:flex; align-items:center; flex-wrap:wrap; gap:4px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:8px 12px; font-size:13px; color:#166534; margin-bottom:6px; }
+
+/* ── SETTINGS GRID ── */
+.settings-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+.settings-item { display:flex; flex-direction:column; gap:4px; }
+.settings-item label { font-size:12px; color:#666; font-weight:500; }
+.settings-input { max-width:100% !important; }
+
+/* Draft card header */
+.draft-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
